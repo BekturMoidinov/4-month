@@ -1,0 +1,17 @@
+{%extends 'components/navbar.html'%}
+{%block content%}
+<body>
+    <h1>hi</h1>
+    {%for p in products %}
+        <div class="card" style="width: 18rem;">
+  <img src={{p.image}} class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{p.title}}</h5>
+    <p class="card-text">{{p.content}}</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+    {% endfor %}
+</body>
+</html>
+{%endblock%}
