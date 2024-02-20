@@ -2,8 +2,7 @@
 {%block content%}
 <body>
     <h1>hi</h1>
-    {%for p in products %}
-        <div class="card" style="width: 18rem;">
+    <div class="card" style="width: 18rem;">
   <img src={{p.image}} class="card-img-top" alt="...">
   <div class="card-body">
     <h5 class="card-title">{{p.title}}</h5>
@@ -11,10 +10,12 @@
       {%for c in p.category.all%}
         <a href="#" class="btn btn-secondory">{{c.name}}</a>
       {%endfor%}
-    <a href="products/{{p.id}}" class="btn btn-primary">View</a>
+      <h5>Comments</h5>
+      {%for r in p.reviews.all%}
+        <p>{{r.text}}</p>
+      {%endfor%}
   </div>
 </div>
-    {% endfor %}
 </body>
 </html>
 {%endblock%}

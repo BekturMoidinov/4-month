@@ -1,0 +1,13 @@
+{%extends 'components/navbar.html'%}
+{%block content%}
+<body>
+<ul class="nav flex-column">
+  {%for i in c%}
+    <li class="nav-item">
+      <a class="nav-link active" aria-current="page" href="products/{{i.id}}">{{i.name}}</a>
+    </li>
+  {%endfor%}
+</ul>
+</body>
+</html>
+{%endblock%}
