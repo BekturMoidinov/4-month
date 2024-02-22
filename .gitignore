@@ -3,3 +3,4 @@
 __pycache__/
 handlers/__pycache__/
 dbbb.sqlite3
+static_files
