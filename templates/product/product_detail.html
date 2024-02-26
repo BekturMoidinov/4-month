@@ -19,6 +19,11 @@
       {%for r in p.reviews.all%}
         <p>{{r.text}}</p>
       {%endfor%}
+      <form action="/products/{{p.id}}/create_review/" method="post">
+    {%csrf_token%}
+    {{form}}
+    <button type="submit">Send review</button>
+</form>
   </div>
 </div>
 </body>

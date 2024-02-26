@@ -1,7 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from datetime import datetime
 from product.models import Product,Category
+from product.forms import ProductForm, CategoryForm,ReviewForm
+
+
 # Create your views here.
 
 def hello_view(request):
@@ -41,4 +44,64 @@ def product__detail_view(request,id=0,prid=0):
             product = Product.objects.get(id=prid)
         except Product.DoesNotExist:
             return HttpResponse("page not found")
-        return render(request=request, template_name='product/product_detail.html', context={'p':product})
+        form = ReviewForm()
+        return render(request=request,
+                      template_name='product/product_detail.html',
+                      context={'p':product,'form':form})
+
+
+def create_review_view(request,id=0,prid=0):
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid() is False:
+            return render(request=request,
+                          template_name='product/product_detail.html',
+                          context={"form": form})
+
+        review=form.save(commit=False)
+        review.product_id=prid
+        review.save()
+        return redirect(f'/products/products/{prid}/')
+
+
+
+def add_product_view(request):
+    if request.method == 'GET':
+        form = ProductForm()
+        return render(request=request, template_name='product/add_product_view.html',context={"form":form})
+    elif request.method == 'POST':
+        form=ProductForm(request.POST, request.FILES)
+        if form.is_valid() is False:
+            return render(request=request,
+                          template_name='product/add_product_view.html',
+                          context={"form":form})
+
+        title=form.cleaned_data['title']
+        content=form.cleaned_data['content']
+        image=form.cleaned_data['image']
+        Product.objects.create(
+            title=title,
+            content=content,
+            image=image
+        )
+        return redirect('/products/')
+
+def create_category_view(request):
+    if request.method == 'GET':
+        form = CategoryForm()
+        return render(request=request,
+                      template_name='product/create_category_view.html',
+                      context={"form":form})
+    elif request.method == 'POST':
+        form = CategoryForm(request.POST)
+        if form.is_valid() is False:
+            return render(request=request,
+                          template_name='product/create_category_view.html',
+                          context={"form": form})
+
+        name = form.cleaned_data['name']
+
+        Category.objects.create(
+            name=name
+        )
+        return redirect('/create/')
