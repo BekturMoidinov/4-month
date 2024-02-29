@@ -19,7 +19,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from product.views import hello_view,goodbye_view,current_date_view,main_view,products_view1,product__detail_view,category_view,products_view2,add_product_view,create_category_view,create_review_view
-from user.views import register_view,login_view,profile_view,logout_view
+from user.views import register_view,login_view,profile_view,logout_view,confirmation_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('hello/',hello_view),
@@ -37,6 +37,7 @@ urlpatterns = [
     path('register/',register_view),
     path('login/',login_view),
     path('profile/',profile_view),
-    path('logout/',logout_view)
+    path('logout/',logout_view),
+    path('confirmation/',confirmation_view,name='confirm')
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

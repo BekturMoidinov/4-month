@@ -25,3 +25,6 @@ class RegisterForm(forms.Form):
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=50)
     password = forms.CharField(max_length=50,widget=forms.PasswordInput)
+
+class SMScodeForm(forms.Form):
+    code = forms.CharField(max_length=4)
