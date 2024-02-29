@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from datetime import datetime
 from product.models import Product,Category
 from product.forms import ProductForm, CategoryForm,ReviewForm
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -15,6 +16,7 @@ def goodbye_view(request):
     return HttpResponse("Bye Bye")
 def main_view(request):
     return render(request, 'index.html')
+@login_required(login_url='/login/')
 def products_view1(request,id):
     if request.method == 'GET':
         try:
@@ -25,19 +27,20 @@ def products_view1(request,id):
         return render(request=request,
                       template_name='product/product_list.html',
                       context={'products': products})
-
+@login_required(login_url='/login/')
 def products_view2(request):
     if request.method == 'GET':
         products=Product.objects.all()
         return render(request=request,
                       template_name='product/product_list.html',
                       context={'products': products})
+@login_required(login_url='/login/')
 def category_view(request):
     if request.method == 'GET':
         categories = Category.objects.all()
         return render(request, 'product/category_list.html', context={'c': categories})
 
-
+@login_required(login_url='/login/')
 def product__detail_view(request,id=0,prid=0):
     if request.method == 'GET':
         try:
@@ -49,7 +52,7 @@ def product__detail_view(request,id=0,prid=0):
                       template_name='product/product_detail.html',
                       context={'p':product,'form':form})
 
-
+@login_required(login_url='/login/')
 def create_review_view(request,id=0,prid=0):
     if request.method == 'POST':
         form = ReviewForm(request.POST)
@@ -64,7 +67,7 @@ def create_review_view(request,id=0,prid=0):
         return redirect(f'/products/products/{prid}/')
 
 
-
+@login_required(login_url='/login/')
 def add_product_view(request):
     if request.method == 'GET':
         form = ProductForm()
@@ -85,7 +88,7 @@ def add_product_view(request):
             image=image
         )
         return redirect('/products/')
-
+@login_required(login_url='/login/')
 def create_category_view(request):
     if request.method == 'GET':
         form = CategoryForm()

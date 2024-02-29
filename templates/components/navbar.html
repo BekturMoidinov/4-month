@@ -16,21 +16,30 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/products/">Products</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/cate/">Category</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/add">Add product</a>
-        </li>
-          <li class="nav-item">
-          <a class="nav-link" href="/create">Create category</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-        </li>
+          {% if user.is_authenticated%}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/products/">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cate/">Category</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/add">Add product</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/create">Create category</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/profile">Profile</a>
+                </li>
+        {%else%}
+             <li class="nav-item">
+                <a class="nav-link" href="/register">Sign up</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/login">Log in</a>
+            </li>
+          {%endif%}
       </ul>
     </div>
   </div>
