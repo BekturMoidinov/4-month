@@ -15,7 +15,7 @@ from django.contrib.auth.models import AbstractBaseUser
 #         return self.first_name
 
 class Profile(models.Model):
-    user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
+    user = models.OneToOneField('auth.User', on_delete=models.CASCADE,related_name='profile')
     age = models.PositiveIntegerField(null=True, blank=True)
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
