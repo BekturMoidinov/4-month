@@ -23,7 +23,10 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
-class SMScode(models.Model):
+class SMScode(models.Model): 
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE,related_name='smscode')
     code = models.CharField(max_length=4)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.user.username} - {self.code}'
