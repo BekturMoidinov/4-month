@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
@@ -16,6 +17,13 @@ class Product(models.Model):
         Category,
         related_name='products'
     )
+    owner = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='owner',
+        null=True
+    )
+
     def __str__(self):
         return f'{self.title} - {self.rate}'
 
@@ -26,6 +34,12 @@ class Review(models.Model):
         related_name='reviews'
     )
     text = models.TextField()
+    sender = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='sender',
+        null=True
+    )
 
 
 

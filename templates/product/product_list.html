@@ -3,6 +3,7 @@
 {%block content%}
 <body>
     <h1>hi</h1>
+    <h>{{p.owner}}</h>
     {%for p in products %}
         <div class="card" style="width: 18rem;">
          {%if p.image%}
@@ -11,6 +12,7 @@
                 <img src= {% static 'none.png' %} class="card-img-top" alt="...">
          {%endif%}
         <div class="card-body">
+
         <h5 class="card-title">{{p.title}}</h5>
         <p class="card-text">{{p.content}}</p>
         {%for c in p.category.all%}
