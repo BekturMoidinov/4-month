@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate,login,logout
 from user.forms import RegisterForm, LoginForm,SMScodeForm
 from django.contrib.auth.decorators import login_required
 from user.models import Profile,SMScode
+from django.core.mail import send_mail
 import random
 # Create your views here.
 
