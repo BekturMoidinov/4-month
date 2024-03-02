@@ -17,6 +17,7 @@
       {%endfor%}
       <h5>Comments</h5>
       {%for r in p.reviews.all%}
+        <p>{{r.sender}}</p>
         <p>{{r.text}}</p>
       {%endfor%}
       <form action="/products/{{p.id}}/create_review/" method="post">

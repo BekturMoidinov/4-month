@@ -3,7 +3,6 @@
 {%block content%}
 <body>
     <h1>hi</h1>
-    <h>{{p.owner}}</h>
     {%for p in products %}
         <div class="card" style="width: 18rem;">
          {%if p.image%}
@@ -14,6 +13,7 @@
         <div class="card-body">
 
         <h5 class="card-title">{{p.title}}</h5>
+            <p>{{p.owner}}</p>
         <p class="card-text">{{p.content}}</p>
         {%for c in p.category.all%}
             <a href="#" class="btn btn-secondory">{{c.name}}</a>
