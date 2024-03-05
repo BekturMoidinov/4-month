@@ -4,3 +4,4 @@ __pycache__/
 handlers/__pycache__/
 dbhah.sqlite3
 static_files
+.env

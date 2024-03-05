@@ -4,7 +4,7 @@ from datetime import datetime
 from product.models import Product,Category
 from product.forms import ProductForm, CategoryForm,ReviewForm
 from django.contrib.auth.decorators import login_required
-
+from django.db.models import Q
 
 # Create your views here.
 
@@ -30,10 +30,25 @@ def products_view1(request,id):
 @login_required(login_url='/login/')
 def products_view2(request):
     if request.method == 'GET':
+        search=request.GET.get('search')
+        page = request.GET.get('page',1)
         products=Product.objects.all()
+        if search:
+            # products=products.filter(title__icontains=search) | products.filter(content__icontains=search)
+            products=products.filter(Q(title__icontains=search) | Q(content__icontains=search))
+        limit=5
+        maxp=products.count()/limit
+
+        if maxp%1!=0:
+            maxp=int(maxp)+1
+        start= (int(page)-1)*limit
+        end=start+limit
+        products=products[start:end]
+
+
         return render(request=request,
                       template_name='product/product_list.html',
-                      context={'products': products})
+                      context={'products': products,'pages': range(1,maxp+1)})
 @login_required(login_url='/login/')
 def category_view(request):
     if request.method == 'GET':

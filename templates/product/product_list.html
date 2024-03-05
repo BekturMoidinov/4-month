@@ -2,6 +2,10 @@
 {%load static%}
 {%block content%}
 <body>
+    <form action="" method="get">
+        <input type="text" name="search" placeholder="Search">
+        <input type="submit" value="Search">
+    </form>
     <h1>hi</h1>
     {%for p in products %}
         <div class="card" style="width: 18rem;">
@@ -22,6 +26,9 @@
         </div>
         </div>
     {% endfor %}
+    {%for i in pages%}
+        <a href="?page={{i}}" class="btn btn-primary">{{i}}</a>
+    {%endfor%}
 </body>
 </html>
 {%endblock%}
