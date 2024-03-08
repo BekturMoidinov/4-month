@@ -1,6 +1,29 @@
 {% extends 'components/navbar.html' %}
-
+{%load static%}
 {% block content %}
+
+{%for p in request.user.products.all %}
+        <div class="card" style="width: 18rem;">
+         {%if p.image%}
+            <img src=/media/{{p.image}} class="card-img-top" alt="...">
+            {%else%}
+                <img src= {% static 'none.png' %} class="card-img-top" alt="...">
+         {%endif%}
+        <div class="card-body">
+
+        <h5 class="card-title">{{p.title}}</h5>
+            <p>{{p.owner}}</p>
+        <p class="card-text">{{p.content}}</p>
+        {%for c in p.category.all%}
+            <a href="#" class="btn btn-secondory">{{c.name}}</a>
+            {%endfor%}
+        <a href="products/{{p.id}}" class="btn btn-primary">View</a>
+        </div>
+        </div>
+    {% endfor %}
+    {%for i in pages%}
+        <a href="?page={{i}}" class="btn btn-primary">{{i}}</a>
+{%endfor%}
 
 <h1>
     Profile
@@ -10,19 +33,6 @@
     Welcome, {{ user.username }}!
 </p>
 
-<img src="/media/{{ user.profile.avatar }}" alt="">
-
-<p>
-    {{ user.email }}
-</p>
-
-<p>
-    {{ user.first_name }} {{ user.last_name }} age: {{ user.profile.age }}
-</p>
-
-<p>
-    {{ user.profile.bio }}
-</p>
 
 <p>
     <a href="/logout/">Logout</a>
